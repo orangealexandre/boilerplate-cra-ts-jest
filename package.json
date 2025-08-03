@@ -31,6 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --testPathPattern=src/client/",
+    "test:watch": "react-scripts test --testPathPattern=src/client/ --watch",
+    "server:test:watch": "jest --config jest.server.config.js --watch",
     "eject": "react-scripts eject",
     "server": "nodemon --exec ts-node --project tsconfig.server.json src/server/index.ts",
     "server:build": "tsc --project tsconfig.server.json",
@@ -38,6 +40,9 @@
     "server:test": "jest --config jest.server.config.js",
     "test:all": "npm run test && npm run server:test",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "dev:with-tests": "concurrently \"npm run server\" \"npm run start\" \"npm run test:watch\" \"npm run server:test:watch\"",
+    "dev:client:with-tests": "concurrently \"npm run start\" \"npm run test:watch\"",
+    "dev:server:with-tests": "concurrently \"npm run server\"  \"npm run server:test:watch\"",
     "build:all": "npm run build && npm run server:build"
   },
   "eslintConfig": {
@@ -46,8 +51,6 @@
       "react-app/jest"
     ]
   },
-
-
   "proxy": "http://localhost:5001",
   "browserslist": {
     "production": [
@@ -63,8 +66,10 @@
   },
   "devDependencies": {
     "@types/supertest": "^6.0.3",
+    "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.0",
     "supertest": "^7.1.4",
+    "tailwindcss": "^3.4.17",
     "ts-jest": "^29.4.0"
   }
 }

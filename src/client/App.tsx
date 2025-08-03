@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-import './App.css';
 
 interface User {
   id: number;
@@ -75,53 +74,69 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>React + Express + TypeScript</h1>
+    <div className="min-h-screen bg-gray-100 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <header className="text-center mb-8">
+          <img src={logo} className="h-24 w-24 mx-auto animate-spin" alt="logo" />
+          <h1 className="text-4xl font-bold text-gray-800 mt-4">React + Express + TypeScript</h1>
+        </header>
         
         {/* Server Health Status */}
         {healthStatus && (
-          <div className="health-status">
-            <h3>Server Status: {healthStatus.status}</h3>
-            <p>{healthStatus.message}</p>
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              Server Status: <span className="text-green-600">{healthStatus.status}</span>
+            </h3>
+            <p className="text-gray-600">{healthStatus.message}</p>
           </div>
         )}
 
         {/* User Form */}
-        <div className="user-form">
-          <h3>Add New User</h3>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Name"
-              value={newUser.name}
-              onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={newUser.email}
-              onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-              required
-            />
-            <button type="submit" disabled={loading}>
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Add New User</h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <input
+                type="text"
+                placeholder="Name"
+                value={newUser.name}
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               {loading ? 'Adding...' : 'Add User'}
             </button>
           </form>
         </div>
 
         {/* Users List */}
-        <div className="users-list">
-          <h3>Users ({users.length})</h3>
-          {users.map((user) => (
-            <div key={user.id} className="user-item">
-              <strong>{user.name}</strong> - {user.email}
-            </div>
-          ))}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Users ({users.length})</h3>
+          <div className="space-y-2">
+            {users.map((user) => (
+              <div key={user.id} className="p-3 bg-gray-50 rounded-md border border-gray-200">
+                <strong className="text-gray-800">{user.name}</strong> - <span className="text-gray-600">{user.email}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </header>
+      </div>
     </div>
   );
 }
